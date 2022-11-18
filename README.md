@@ -3,5 +3,5 @@
 ## 実行
 
 ```bash
-pip install ./cppState
+python setup.py install
 ```
