@@ -7,6 +7,7 @@ using namespace std;
 PYBIND11_MODULE(cppState, m)
 {
     pybind11::class_<State>(m, "State")
+        .def(pybind11::init())
         .def(pybind11::init<vector<int>>())
         .def(pybind11::init<vector<int>, vector<int>, vector<int>, int>())
         .def_readwrite("pieces", &State::pieces)

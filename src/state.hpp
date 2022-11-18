@@ -12,12 +12,20 @@ private:
 public:
     vector<int> pieces = vector<int>(16, 0);
     vector<int> enemy_pieces = vector<int>(16, 0);
-    vector<int> ratio_box;
+    vector<int> ratio_box = vector<int>(16, 100);
 
     int depth = 0;
     vector<vector<int>> dxy = {{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
     bool pass_end = false;
     bool ratio_flg = false;
+
+    State()
+    {
+        this->pieces[center_idx - balance_idx - 1] = 1;
+        this->pieces[center_idx + balance_idx] = 1;
+        this->enemy_pieces[center_idx - balance_idx] = 1;
+        this->enemy_pieces[center_idx + balance_idx - 1] = 1;
+    }
 
     State(vector<int> r)
     {
