@@ -1,27 +1,30 @@
+import sys
+
+# Available at setup time due to pyproject.toml
+from pybind11 import get_cmake_dir
+from pybind11.setup_helpers import Pybind11Extension, build_ext
 from setuptools import setup
 
+__version__ = "0.0.1"
 
 ext_modules = [
-    Extension(
-        'cppState',  # ライブラリ名
-        ['src/statebind.cpp'],  # 参照にするファイル
-        include_dirs=[
-            # Path to pybind11 headers
-            get_pybind_include(),
-            get_pybind_include(user=True)
-        ],
-        language='c++'
-    ),
+    Pybind11Extension("cppState",
+                      ["src/statebind.cpp"],
+                      language='c++',
+                      # Example: passing in the version to the compiled code
+                      define_macros=[('VERSION_INFO', __version__)],
+                      ),
 ]
 
 setup(
-    name='cppState',  # ライブラリ名
-    version=0.1,
-    author='tamura kazuma',
-    description='state written by cpp',
-    long_description='',
+    name="cppState",
+    version=__version__,
+    author="tamura kazuma",
+    description="state written by cpp",
+    long_description="",
     ext_modules=ext_modules,
-    install_requires=['pybind11>=2.10'],
-    cmdclass={'build_ext': BuildExt},
+    extras_require={"test": "pytest"},
+    cmdclass={"build_ext": build_ext},
     zip_safe=False,
+    python_requires=">=3.7",
 )
